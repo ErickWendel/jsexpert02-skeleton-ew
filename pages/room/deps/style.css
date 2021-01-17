@@ -138,3 +138,7 @@
     color: white;
     background-color: black;
 }
+
+.disabled {
+    opacity: 0.5;
+}
