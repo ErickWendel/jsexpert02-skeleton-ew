@@ -14,10 +14,12 @@ const onload = () => {
   // const recorderBtn = document.getElementById("record");
   // recorderBtn.addEventListener("click", recordClick(recorderBtn));
 
+  const socketUrl = 'http://localhost:3000'
+  const socketBuilder = new SocketBuilder({ socketUrl })
   const view = new View();
   const media = new Media();
 
-  Business.initialize({ room, media, view })
+  Business.initialize({ room, media, socketBuilder, view })
 };
 
 window.onload = onload;
