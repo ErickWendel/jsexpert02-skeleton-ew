@@ -1,5 +1,5 @@
 class View {
-  constructor() {}
+  constructor() { }
 
   createVideoElement({ muted = true, src, srcObject }) {
     const video = document.createElement("video");
@@ -20,8 +20,9 @@ class View {
     return video;
   }
 
-  renderVideo({ userId, stream = null, url = null, isCurrentId }) {
+  renderVideo({ muted, userId, stream = null, url = null, isCurrentId }) {
     const video = this.createVideoElement({
+      muted,
       src: url,
       srcObject: stream,
     });
