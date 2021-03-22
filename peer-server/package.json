@@ -1,0 +1,16 @@
+{
+  "name": "peer-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env PORT=9000 npm start",
+    "start": "peerjs --port $PORT --key peerjs --path /"
+  },
+  "keywords": [],
+  "author": "Arthur Denner",
+  "license": "ISC",
+  "dependencies": {
+    "peer": "^0.6.1"
+  }
+}
