@@ -11,6 +11,7 @@ class Business {
     this.currentStream = {};
     this.socket = {}
     this.currentPeer = {}
+    this.peers = new Map()
   }
 
   static initialize(deps) {
@@ -27,10 +28,11 @@ class Business {
       .setOnUserDisconnected(this.onUserDisconnected())
       .build();
 
-    this.currentPeer = this.peerBuilder
+    this.currentPeer = await this.peerBuilder
       .setOnError(this.onPeerError())
       .setOnConnectionOpened(this.onPeerConnectionOpened())
       .setOnCallReceived(this.onPeerCallReceived())
+      .setOnPeerStreamReceived(this.onPeerStreamReceived())
       .build();
 
     this.addVideoStream('test01')
@@ -64,5 +66,13 @@ class Business {
 
   onPeerCallReceived = () => call => {
     call.answer(this.currentStream)
+  }
+
+  onPeerStreamReceived = () => (call, stream) => {
+    const callerId = call.peer
+
+    this.addVideoStream(callerId, stream)
+    this.peers.set(callerId, { call })
+    this.view.setParticipants(this.peers.size)
   }
 }
