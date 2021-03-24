@@ -12,6 +12,7 @@ class Business {
     this.socket = {}
     this.currentPeer = {}
     this.peers = new Map()
+    this.userRecordings = new Map()
   }
 
   static initialize(deps) {
@@ -43,6 +44,14 @@ class Business {
   }
 
   addVideoStream(userId, stream = this.currentStream) {
+    const recorderInstance = new Recorder(userId, stream);
+
+    this.userRecordings.set(recorderInstance.filename, recorderInstance)
+
+    if (this.recordingEnabled) {
+      recorderInstance.startRecording()
+    }
+
     this.view.renderVideo({
       stream,
       userId,
