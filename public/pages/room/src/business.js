@@ -60,7 +60,6 @@ class Business {
 
   onUserConnected = () => {
     return userId => {
-      console.log('user connected!', userId)
       this.currentPeer.call(userId, this.currentStream)
     }
   }
@@ -106,5 +105,24 @@ class Business {
 
   onRecordPressed(recordingEnabled) {
     this.recordingEnabled = recordingEnabled
+
+    for (const [key, value] of this.userRecordings) {
+      if (this.recordingEnabled) {
+        value.startRecording()
+        continue;
+      }
+
+      this.stopRecording(key)
+    }
+  }
+
+  async stopRecording(userId) {
+    for (const [key, value] of this.userRecordings) {
+      if (!key.includes(userId) || !value.recordingActive) {
+        continue;
+      }
+
+      await value.stopRecording()
+    }
   }
 }

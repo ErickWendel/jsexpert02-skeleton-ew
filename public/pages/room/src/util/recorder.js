@@ -8,6 +8,7 @@ class Recorder {
 
     this.mediaRecorder = {}
     this.recordedBlobs = []
+    this.completeRecordings = []
     this.recordingActive = false
   }
 
@@ -52,5 +53,19 @@ class Recorder {
 
     this.mediaRecorder.start()
     this.recordingActive = true
+  }
+
+  async stopRecording() {
+    if (!this.recordingActive || this.mediaRecorder.state === 'inactive') {
+      return
+    }
+
+    this.mediaRecorder.stop()
+    this.recordingActive = false
+
+    await Util.sleep(200)
+
+    this.completeRecordings.push(this.recordedBlobs)
+    this.recordedBlobs = []
   }
 }
