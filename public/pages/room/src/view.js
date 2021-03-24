@@ -49,4 +49,8 @@ class View {
 
     participants.textContent = count + 1
   }
+
+  removeVideoElement(id) {
+    document.getElementById(id).remove()
+  }
 }
