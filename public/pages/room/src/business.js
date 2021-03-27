@@ -72,6 +72,7 @@ class Business {
 
       this.peers.get(userId).call.close()
       this.peers.delete(userId)
+      this.stopRecording(userId)
       this.view.setParticipants(this.peers.size)
       this.view.removeVideoElement(userId)
     }
