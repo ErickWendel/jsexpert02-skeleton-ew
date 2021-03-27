@@ -76,4 +76,23 @@ class Recorder {
       return window.URL.createObjectURL(superBuffer)
     })
   }
+
+  download() {
+    if (!this.completeRecordings.length) {
+      return
+    }
+
+    const [, extension] = this.videoType.split('/')
+    const urls = this.getAllVideoURLs()
+
+    for (const url of urls) {
+      const a = document.createElement('a')
+
+      a.style.display = 'none'
+      a.href = url
+      a.download = `${this.filename}.${extension}`
+      document.body.appendChild(a)
+      a.click()
+    }
+  }
 }
