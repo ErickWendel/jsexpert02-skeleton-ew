@@ -124,6 +124,16 @@ class Business {
       }
 
       await value.stopRecording()
+      this.playRecordings(key)
     }
+  }
+
+  playRecordings(userId) {
+    const user = this.userRecordings.get(userId)
+    const videosURLs = user.getAllVideoURLs()
+
+    videosURLs.map(url => {
+      this.view.renderVideo({ url, userId })
+    })
   }
 }
