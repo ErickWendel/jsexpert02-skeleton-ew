@@ -54,6 +54,7 @@ class Business {
     }
 
     this.view.renderVideo({
+      isCurrentId: userId === this.currentPeer.id,
       stream,
       userId,
     })
@@ -91,6 +92,11 @@ class Business {
 
   onPeerStreamReceived = () => (call, stream) => {
     const callerId = call.peer
+
+    if (this.peers.has(callerId)) {
+      // Calling twice, ignoring the second call
+      return
+    }
 
     this.addVideoStream(callerId, stream)
     this.peers.set(callerId, { call })
